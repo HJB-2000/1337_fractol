@@ -1,0 +1,117 @@
+#ifndef FRACTOL_H
+#define FRACTOL_H
+
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <math.h>
+#include <stdbool.h>
+#include "minilibx_opengl_20191021/mlx.h"
+
+
+// Standard colors in 0xRRGGBB format
+#define COLOR_BLACK    0x000000
+#define COLOR_RED      0xFF0000
+#define COLOR_GREEN    0x00FF00
+#define COLOR_YELLOW   0xFFFF00
+#define COLOR_BLUE     0x0000FF
+#define COLOR_MAGENTA  0xFF00FF
+#define COLOR_CYAN     0x00FFFF
+#define COLOR_WHITE    0xFFFFFF
+
+// Bright variants
+#define COLOR_BRIGHT_BLACK   0x808080
+#define COLOR_BRIGHT_RED     0xFF6666
+#define COLOR_BRIGHT_GREEN   0x66FF66
+#define COLOR_BRIGHT_YELLOW  0xFFFF66
+#define COLOR_BRIGHT_BLUE    0x6666FF
+#define COLOR_BRIGHT_MAGENTA 0xFF66FF
+#define COLOR_BRIGHT_CYAN    0x66FFFF
+#define COLOR_BRIGHT_WHITE   0xF8F8FF
+
+// Psychedelic colors
+#define COLOR_TRIPPY1  0xFF1493  // Deep Pink
+#define COLOR_TRIPPY2  0x4B0082  // Indigo
+#define COLOR_TRIPPY3  0x00FF7F  // Spring Green
+#define COLOR_TRIPPY4  0xFFA500  // Orange
+#define COLOR_TRIPPY5  0x00BFFF  // Deep Sky Blue
+#define COLOR_TRIPPY6  0x9400D3  // Dark Violet
+#define COLOR_TRIPPY7  0xFF4500  // Red-Orange
+#define COLOR_TRIPPY8  0xADFF2F  // Green-Yellow
+
+
+# define H 900
+# define W 1080
+
+
+typedef struct s_garbage
+{
+    void *_malloc;
+    struct s_garbage *next;
+} t_garbage;
+
+typedef struct s_image
+{
+    void *image_ptr;	/*mlx_new_image*/
+    char *addr_p;		/*mlx_get_data_addr()*/
+    int bits_pp;     /*bits per pixel*/
+    int ll;         /*line_lenght*/
+    int endian;		/*i dont know*/
+}   t_image;
+
+typedef struct s_mlx_d
+{
+    void    *init_c; /*mlx_init()*/
+    void    *window; /*mlx_new_window*/
+    char    *title;
+    int     esacap_check;
+    int     pixel_loop;
+	t_image image; /*struct contain the info about image*/
+
+}t_mlx ;
+
+typedef struct s_number
+{
+    double r_part;
+    double i_part;
+}   t_com;
+
+
+void drawing(char *title);
+void initialize_set(t_mlx *set);
+
+
+t_com calculate_new_com(t_com num, t_com point);
+
+
+/*rendreing*/
+
+void my_put_pixel(int row, int colomn, t_image image, int color);
+void treat_pixel(int row, int column, t_mlx *set);
+void rendring(t_mlx *set);
+/******************************/
+ /*z_math*/
+ t_com calculate_new_com(t_com num, t_com point);
+double rescale_window(double unscaled_num, double new_min, double new_max, double old_min, double old_max);
+/******************************/
+
+
+
+
+
+
+
+
+
+
+
+/*helper_function*/
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
+void    my_putstr(char *str);
+void add_node(t_garbage **head, t_garbage *new_node);
+void *_malloc(size_t size, void *ptr, bool free_flag, bool error_flag);
+
+/*to be change*/
+/*********************/
+
+#endif
