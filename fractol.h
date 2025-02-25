@@ -6,8 +6,13 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
+#include <limits.h>
+
+#include <signal.h>
+
 #include "minilibx_opengl_20191021/mlx.h"
 
+#define FIXED_SCALE (1 << 16) // 2^16 scaling factor
 
 // Standard colors in 0xRRGGBB format
 #define COLOR_BLACK    0x000000
@@ -40,9 +45,14 @@
 #define COLOR_TRIPPY8  0xADFF2F  // Green-Yellow
 
 
-# define H 900
-# define W 1080
+# define H 800
+# define W 800
 
+typedef struct s_rescale
+{
+    double *resc_row;
+    double *resc_column;
+}   t_resc;
 
 typedef struct s_garbage
 {
@@ -66,6 +76,12 @@ typedef struct s_mlx_d
     char    *title;
     int     esacap_check;
     int     pixel_loop;
+    double     move_row;
+    double     move_column;
+    double      zoom_factor;
+    double  julia_real;
+    double  julia_imag;
+    double time;
 	t_image image; /*struct contain the info about image*/
 
 }t_mlx ;
@@ -77,7 +93,7 @@ typedef struct s_number
 }   t_com;
 
 
-void drawing(char *title);
+void drawing_mandlbrot(char *title);
 void initialize_set(t_mlx *set);
 
 
@@ -87,23 +103,14 @@ t_com calculate_new_com(t_com num, t_com point);
 /*rendreing*/
 
 void my_put_pixel(int row, int colomn, t_image image, int color);
-void treat_pixel(int row, int column, t_mlx *set);
+void	treat_pixel(int row, int column, t_mlx *set, t_resc dimention);
 void rendring(t_mlx *set);
 /******************************/
  /*z_math*/
  t_com calculate_new_com(t_com num, t_com point);
 double rescale_window(double unscaled_num, double new_min, double new_max, double old_min, double old_max);
 /******************************/
-
-
-
-
-
-
-
-
-
-
+void load_event_listeners(t_mlx **set);
 
 /*helper_function*/
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -114,4 +121,21 @@ void *_malloc(size_t size, void *ptr, bool free_flag, bool error_flag);
 /*to be change*/
 /*********************/
 
+
+void initialize_set_julia(t_mlx *_set);
+void drawing_julia(char *title, double v1, double v2);
+void render_julia(t_mlx *set);
+void my_put_pixel_julia(int row, int column, t_image image, int color);
+void load_event_listeners_julia(t_mlx **set);
+double ft_atoi(const char *str);
+
+void drawing_burning_ship(char *title);
+void initialize_burning_ship(t_mlx *_set);
+void render_burning_ship(t_mlx *set);
+void load_event_listeners_burnig_ship(t_mlx **set);
+int handle_destroy_b(t_mlx **set);
+int handle_mouse_enter_b(int b, int x, int y, t_mlx **set);
+int handle_keypress_b(int keycode, t_mlx **set);
+void render_ship(t_mlx *set);
+void l();
 #endif

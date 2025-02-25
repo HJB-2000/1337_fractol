@@ -1,4 +1,4 @@
-#include "fractol.h"
+#include "../fractol.h"
 
 double rescale_window(double unscaled_num, double new_min, double new_max, double old_min, double old_max)
 {

@@ -30,3 +30,50 @@ void    my_putstr(char *str)
     }
     return ;
 }
+
+static	int	ft_isspace(char c)
+{
+	if (c == 32 || (c >= 9 && c <= 13))
+		return (1);
+	return (0);
+}
+
+
+double ft_atoi(const char *str)
+{
+    int sign = 1;
+    double result = 0.0;
+    double fraction = 0.0;
+    int decimal_places = 0;
+
+    while (ft_isspace(*str))
+        str++;
+    if (*str == '-')
+        sign = -1;
+    if (*str == '+' || *str == '-')
+        str++;
+    while (*str >= '0' && *str <= '9')
+    {
+        if (result > (LLONG_MAX - (*str - '0')) / 10)
+        {
+            if (sign == -1)
+                return 0.0; // Underflow
+            else
+                return -1.0; // Overflow
+        }
+        result = result * 10 + (*str - '0');
+        str++;
+    }
+    if (*str == '.')
+    {
+        str++;
+        while (*str >= '0' && *str <= '9')
+        {
+            fraction = fraction * 10 + (*str - '0');
+            decimal_places++;
+            str++;
+        }
+        result += fraction / pow(10, decimal_places);
+    }
+    return result * sign;
+}

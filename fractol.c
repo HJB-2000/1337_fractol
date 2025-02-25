@@ -4,51 +4,47 @@ void l()
     system("leaks fractol");
 }
 
-void initialize_set(t_mlx *_set)
+
+
+void	treat_args(int argc, char **argv)
 {
-    _set->init_c = _malloc(0, mlx_init(), false, false);
-    if (!_set->init_c)
-        _malloc(0, NULL, false, true);
-    _set->window = _malloc(0, mlx_new_window(_set->init_c, W, H, _set->title), false, false);
-    if (!_set->window)
-        _malloc(0, NULL, false, true);
-    _set->image.image_ptr = _malloc(0, mlx_new_image(_set->init_c, W, H), false, false);
-    if (!_set->image.image_ptr)
+	if (!ft_strncmp(argv[1], "Mandelbrot", 11))
+		drawing_mandlbrot("Mandelbrot");
+	
+
+    else if (!ft_strncmp(argv[1], "Julia", 6))
     {   
-        mlx_destroy_window(_set->init_c, _set->window);
-        _malloc(0, NULL, false, true);
+        if (argc != 4)
+        {
+            my_putstr("Error: Julia set requires two additional arguments.\n");
+            return ;
+        }
+        drawing_julia("Julia", ft_atoi(argv[2]), ft_atoi(argv[3]));
     }
-    _set->image.addr_p = mlx_get_data_addr(_set->image.image_ptr, &_set->image.bits_pp,
-                                                        &_set->image.ll, &_set->image.endian);
+	else if (!ft_strncmp(argv[1], "burning_ship", 13))
+		drawing_burning_ship("burning_ship");
+    else
+         my_putstr("please enter a valide arguments exmples:\n\
+        \t./fractol Mandelbrot\n\
+        \t./fractol Julia <value 1><value 2>\n");
 }
-
-void drawing(char *title)
-{  
-    t_mlx   *set;
-
-    set = _malloc(sizeof(t_mlx), NULL, false, false);
-    set->title = title;
-    set->esacap_check = 4;
-    set->pixel_loop = 42;
-    initialize_set(set);
-    rendring(set);
-    mlx_loop(set->init_c);
-}
-
-
 int main(int argc, char **argv)
 {
-    if ((2 == argc && !ft_strncmp(argv[1], "Mandelbrot", 11))
-        || (4 == argc && !ft_strncmp(argv[1], "julia", 6)))
+   
+    if (argc < 2 || !argv[1])
     {
-        drawing(argv[1]);
+        my_putstr("Error: Missing fractal type argument.\n");
+        return 1;
+    }
+    if (argc == 2 || argc == 4)
+    {
+        treat_args(argc, argv);
     }
     else
-    {
         my_putstr("please enter a valide arguments exmples:\n\
-        \t./farctol mandelbort.\n\
-        \t./farctol julia <value 1><value 2>\n");
-    }
+        \t./fractol Mandelbrot\n\
+        \t./fractol Julia <value 1><value 2>\n");
+
     atexit(l);
     return 0;
 }
