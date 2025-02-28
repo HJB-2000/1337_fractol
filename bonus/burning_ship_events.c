@@ -5,7 +5,7 @@ int handle_keypress_b(int keycode, t_mlx **set)
     if (keycode == 53)
     {
         printf("ESC key pressed. Closing window...\n");
-        mlx_destroy_window((*set)->init_c, (*set)->window);
+        _malloc(0, NULL, true, false);
         atexit(l);
         exit(0);
     }
@@ -35,8 +35,7 @@ int handle_mouse_enter_b(int b, int x, int y, t_mlx **set)
     }
     (*set)->move_row = mouse_x_fractal - rescale_window(x, -2, 2, 0, W) * (*set)->zoom_factor;
     (*set)->move_column = mouse_y_fractal - rescale_window(y, 2, -2, 0, H) * (*set)->zoom_factor;
-    render_burning_ship(*set);
-    // render_ship(*set);
+    mlx_loop_hook((*set)->init_c, animate, *set);
     return (0);
 }
 
@@ -44,7 +43,9 @@ int handle_destroy_b(t_mlx **set)
 {
     (void)set;
     printf("Window closed.\n");
-    mlx_destroy_window((*set)->init_c, (*set)->window);
+    // mlx_destroy_window((*set)->init_c, (*set)->window);
+    _malloc(0, NULL, true, false);
+    atexit(l);
     exit(0);
 }
 

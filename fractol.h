@@ -45,8 +45,8 @@
 #define COLOR_TRIPPY8  0xADFF2F  // Green-Yellow
 
 
-# define H 800
-# define W 800
+# define H 700
+# define W 700
 
 typedef struct s_rescale
 {
@@ -57,6 +57,7 @@ typedef struct s_rescale
 typedef struct s_garbage
 {
     void *_malloc;
+    int index;
     struct s_garbage *next;
 } t_garbage;
 
@@ -82,6 +83,7 @@ typedef struct s_mlx_d
     double  julia_real;
     double  julia_imag;
     double time;
+    int     flag;
 	t_image image; /*struct contain the info about image*/
 
 }t_mlx ;
@@ -137,5 +139,7 @@ int handle_destroy_b(t_mlx **set);
 int handle_mouse_enter_b(int b, int x, int y, t_mlx **set);
 int handle_keypress_b(int keycode, t_mlx **set);
 void render_ship(t_mlx *set);
+int animate(t_mlx *set);
+void initialize_set(t_mlx *_set);
 void l();
 #endif

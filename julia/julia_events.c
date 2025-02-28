@@ -22,14 +22,16 @@ int handle_keypress_j(int keycode, t_mlx **set)
         (*set)->julia_imag += 0.1;
     else if (keycode == 1)
         (*set)->julia_imag -= 0.1;
+
+
     if (keycode == 123)
-        (*set)->move_row += 0.5;
+        (*set)->move_row += 0.1;
     if (keycode == 124)
-        (*set)->move_row -= 0.5;
+        (*set)->move_row -= 0.1;
     if (keycode == 125)
-        (*set)->move_column += 0.5;
+        (*set)->move_column += 0.1;
     if (keycode == 126)
-        (*set)->move_column -= 0.5;
+        (*set)->move_column -= 0.1;
     render_julia(*set);  
     return (0);
 }
