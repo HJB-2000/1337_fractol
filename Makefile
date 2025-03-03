@@ -5,18 +5,17 @@ SRC_FILES = fractol_helper_func.c\
 			my_malloc.c\
 			mandlbrot/rendring_mandelbrot.c\
 			mandlbrot/z_math.c\
-			mandlbrot/events.c\
 			julia/rendring_julia.c\
-			julia/julia_events.c\
 			bonus/render_burning_ship.c\
 			bonus/burning_ship_events.c\
 			initialize_set.c\
+			events.c\
 			fractol.c
 
 OBJS = $(SRC_FILES:.c=.o)
 
 
-CFLAGS = -Werror -Wall -Wextra
+CFLAGS = -Werror -Wall -Wextra 
 CC = cc
 %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@ 

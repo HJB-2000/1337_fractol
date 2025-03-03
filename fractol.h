@@ -48,6 +48,13 @@
 # define H 700
 # define W 700
 
+
+typedef struct s_range
+{
+    double  min;
+    double  max;
+}   t_range;
+
 typedef struct s_rescale
 {
     double *resc_row;
@@ -110,7 +117,7 @@ void rendring(t_mlx *set);
 /******************************/
  /*z_math*/
  t_com calculate_new_com(t_com num, t_com point);
-double rescale_window(double unscaled_num, double new_min, double new_max, double old_min, double old_max);
+// double rescale_window(double unscaled_num, double new_min, double new_max, double old_min, double old_max);
 /******************************/
 void load_event_listeners(t_mlx **set);
 
@@ -141,5 +148,7 @@ int handle_keypress_b(int keycode, t_mlx **set);
 void render_ship(t_mlx *set);
 int animate(t_mlx *set);
 void initialize_set(t_mlx *_set);
+double	rescale_window(double unscaled_num, t_range new, t_range old);
+t_range	range(double min_range,  double max_range);
 void l();
 #endif

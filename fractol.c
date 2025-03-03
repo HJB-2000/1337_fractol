@@ -14,7 +14,6 @@ int animate(t_mlx *set)
         set->time = 0.0;
     }
     render_burning_ship(set);
-    mlx_put_image_to_window(set->init_c, set->window, set->image.image_ptr, 0, 0); // Display the updated image
     return (0);
 }
 t_mlx	*create_set(t_mlx	*set, char **argv, int flag)
@@ -22,7 +21,6 @@ t_mlx	*create_set(t_mlx	*set, char **argv, int flag)
     double  v1;
     double  v2;
     char    *title;
-
 	set = _malloc(sizeof(t_mlx), NULL, false, false);
     title = argv[1];
     if (flag == 2)
@@ -46,31 +44,27 @@ t_mlx	*create_set(t_mlx	*set, char **argv, int flag)
 }
 void	draw(int flag, char **argv)
 {
-	t_mlx	*set = NULL;
+	t_mlx	*set;
+
+    set = NULL;
 	set = create_set(set, argv, flag);
     initialize_set(set);
 	if (flag == 1)
 	{
         rendring(set);
-	    load_event_listeners(&set);
-	    mlx_loop(set->init_c);
 	}
 	else if (flag == 2)
 	{
         render_julia(set);
-	    load_event_listeners(&set);
-        // load_event_listeners_julia(&set);
-        mlx_loop(set->init_c);
 	}
 	else if (flag == 3)
 	{
-        // initialize_set(set);
-        // render_burning_ship(set);
-        // render_ship(set);
         load_event_listeners_burnig_ship(&set);
         mlx_loop_hook(set->init_c, animate, set);
         mlx_loop(set->init_c);
 	}
+	load_event_listeners(&set);
+    mlx_loop(set->init_c);
 }
 
 

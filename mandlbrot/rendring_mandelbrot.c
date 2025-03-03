@@ -6,7 +6,7 @@
 /*   By: jbahmida <jbahmida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 23:42:22 by jbahmida          #+#    #+#             */
-/*   Updated: 2025/02/21 09:04:57 by jbahmida         ###   ########.fr       */
+/*   Updated: 2025/03/03 09:55:58 by jbahmida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	treat_pixel(int row, int column, t_mlx *set, t_resc dimention)
 	}
 	iterations = calculate_iterations(num, p, set);
 	if (iterations < set->pixel_loop)
-		color = rescale_window(iterations, COLOR_BLACK, COLOR_BRIGHT_RED,
-				0, set->pixel_loop);
+		color = rescale_window(iterations, range(COLOR_BLACK, COLOR_BRIGHT_RED),
+				range(0, set->pixel_loop));
 	else
 		color = COLOR_BLACK;
 	my_put_pixel(row, column, set->image, color);
@@ -83,12 +83,12 @@ t_resc	grid(void)
 	c = 0;
 	while (r < W)
 	{
-		d.resc_row[r] = rescale_window(r, -2, 2, 0, W);
+		d.resc_row[r] = rescale_window(r, range(-2, 2), range(0, W));
 		r++;
 	}
-	while (c < W)
+	while (c < H)
 	{
-		d.resc_column[c] = rescale_window(c, 2, -2, 0, H);
+		d.resc_column[c] = rescale_window(c, range(2, -2), range(0, H));
 		c++;
 	}
 	return (d);
@@ -112,8 +112,6 @@ void	rendring(t_mlx *set)
 		}
 		row++;
 	}
-	free(dimention.resc_row);
-	free(dimention.resc_column);
 	mlx_put_image_to_window(set->init_c, set->window,
 		set->image.image_ptr, 0, 0);
 }

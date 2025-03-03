@@ -7,100 +7,77 @@ void my_put_pixel_julia(int row, int column, t_image image, int color)
     *(unsigned int *)(image.addr_p + offset) = color;
 }
 
-// void render_julia(t_mlx *set)
-// {
-//     int row, column;
-//     t_com z, c;
-//     int i, color;
+void init_julia_constants(t_com *c, t_mlx *set)
+{
+    c->r_part = set->julia_real;
+    c->i_part = set->julia_imag;
+}
 
-//     c.r_part = set->julia_real;
-//     c.i_part = set->julia_imag;
-//     for (column = 0; column < H; column++)
-//     {
-//         for (row = 0; row < W; row++)
-//         {
-//             z.r_part = rescale_window(row, -2, 2, 0, W) * set->zoom_factor + set->move_row;
-//             z.i_part = rescale_window(column, 2, -2, 0, H) * set->zoom_factor + set->move_column;
+void map_to_complex_plane(t_com *z, int row, int column, t_mlx *set)
+{
+    z->r_part = rescale_window(row, range(-2, 2), range(0, W)) * set->zoom_factor + set->move_row;
+    z->i_part = rescale_window(column, range(2, -2), range(0, H)) * set->zoom_factor + set->move_column;
+}
 
-//             i = 0;
-//             while (i < set->pixel_loop)
-//             {
-//                 double z_r_squared = z.r_part * z.r_part;
-//                 double z_i_squared = z.i_part * z.i_part;
+void iterate_julia(t_com *z, t_com *c)
+{
+    double z_r_squared = z->r_part * z->r_part;
+    double z_i_squared = z->i_part * z->i_part;
+    double new_z_r = z_r_squared - z_i_squared + c->r_part;
+    double new_z_i = 2 * z->r_part * z->i_part + c->i_part;
+    z->r_part = new_z_r;
+    z->i_part = new_z_i;
+}
 
-//                 if (z_r_squared + z_i_squared > 4.0)
-//                 {
-//                     color = rescale_window(i, COLOR_BLACK, COLOR_BRIGHT_RED, 0, set->pixel_loop);
-//                     my_put_pixel(row, column, set->image, color);
-//                     break;
-//                 }
-//                 double new_z_r = z_r_squared - z_i_squared + c.r_part;
-//                 double new_z_i = 2 * z.r_part * z.i_part + c.i_part;
-//                 z.r_part = new_z_r;
-//                 z.i_part = new_z_i;
+int check_escape_and_color(t_com *z, int i, int row, int column, t_mlx *set)
+{
+    double	magnitude_squared;
+    int		color;
+    magnitude_squared = z->r_part * z->r_part + z->i_part * z->i_part;
+    if (magnitude_squared > 4.0)
+    {
+        color = rescale_window(i, range(COLOR_BLACK, COLOR_BRIGHT_RED),
+			range(0, set->pixel_loop));
+        my_put_pixel(row, column, set->image, color);
+        return (1);
+    }
+    return (0);
+}
 
-//                 i++;
-//             }
-//             if (i == set->pixel_loop)
-//             {
-//                 my_put_pixel_julia(row, column, set->image, COLOR_BLACK);
-//             }
-//         }
-//     }
-//     mlx_put_image_to_window(set->init_c, set->window, set->image.image_ptr, 0, 0);
-// }
-
+static void process_pixel(int row, int column, t_mlx *set, t_com *c)
+{
+    t_com	z;
+    int		i;
+    
+	i = 0;
+    map_to_complex_plane(&z, row, column, set); 
+    while (i < set->pixel_loop)
+    {
+        if (check_escape_and_color(&z, i, row, column, set))
+            return;       
+        iterate_julia(&z, c);
+        i++;
+    }
+    my_put_pixel_julia(row, column, set->image, COLOR_BLACK);
+}
 
 void render_julia(t_mlx *set)
 {
-    int row;
-    int column;
-    int i;
-    int color;
-    t_com z;
-    t_com c;
-    double z_r_squared;
-    double z_i_squared;
-    double new_z_r;
-    double new_z_i;
-
-
-    c.r_part = set->julia_real;
-    c.i_part = set->julia_imag;
+    t_com	c;
+    int		row;
+	int		column;
     
+    init_julia_constants(&c, set);
     column = 0;
     while (column < H)
-    {   
+    {
         row = 0;
         while (row < W)
         {
-            z.r_part = rescale_window(row, -2, 2, 0, W) * set->zoom_factor + set->move_row;
-            z.i_part = rescale_window(column, 2, -2, 0, H) * set->zoom_factor + set->move_column;
-            i = 0;
-            while (i < set->pixel_loop)
-            {
-                z_r_squared = z.r_part * z.r_part;
-                z_i_squared = z.i_part * z.i_part;
-                if (z_r_squared + z_i_squared > 4.0)
-                {
-                    color = rescale_window(i, COLOR_BLACK, COLOR_BRIGHT_RED, 0, set->pixel_loop);
-                    my_put_pixel(row, column, set->image, color);
-                    break;
-                }
-                new_z_r = z_r_squared - z_i_squared + c.r_part;
-                new_z_i = 2 * z.r_part * z.i_part + c.i_part;
-                z.r_part = new_z_r;
-                z.i_part = new_z_i;
-                i++;
-            }
-            if (i == set->pixel_loop)
-            {
-                my_put_pixel_julia(row, column, set->image, COLOR_BLACK);
-            }
+            process_pixel(row, column, set, &c);
             row++;
         }
         column++;
-    }
+    }    
     mlx_put_image_to_window(set->init_c, set->window, set->image.image_ptr, 0, 0);
 }
-
