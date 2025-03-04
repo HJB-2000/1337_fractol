@@ -6,7 +6,7 @@
 /*   By: jbahmida <jbahmida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 20:53:16 by jbahmida          #+#    #+#             */
-/*   Updated: 2025/03/03 09:55:27 by jbahmida         ###   ########.fr       */
+/*   Updated: 2025/03/04 11:46:27 by jbahmida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,15 @@ int	handle_keypress_b(int keycode, t_mlx **set)
 		(*set)->pixel_loop += 50;
 	if (keycode == 78)
 		(*set)->pixel_loop -= 50;
+
+		if (keycode == 123)
+		(*set)->move_row += 0.5;
+	if (keycode == 124)
+		(*set)->move_row -= 0.5;
+	if (keycode == 125)
+		(*set)->move_column -= 0.5;
+	if (keycode == 126)
+		(*set)->move_column += 0.5;
 	render_burning_ship(*set);
 	return (0);
 }
@@ -38,18 +47,18 @@ int	handle_mouse_enter_b(int b, int x, int y, t_mlx **set)
 
 	if (!set || !*set)
 		return (0);
-	mouse_x_fractal = rescale_window(x, range(-2, 2), range( 0, W))
+	mouse_x_fractal = rescale_window(x, range(-2.5, 2.5), range(0, W))
 		* (*set)->zoom_factor + (*set)->move_row;
-	mouse_y_fractal = rescale_window(y, range(2, -2), range(0, H))
+	mouse_y_fractal = rescale_window(y, range(-2, 2), range(0, H))
 		* (*set)->zoom_factor + (*set)->move_column;
 	if (b == 5)
 		(*set)->zoom_factor *= 0.95;
 	else if (b == 4)
 		(*set)->zoom_factor *= 1.05;
-	(*set)->move_row = mouse_x_fractal - rescale_window(x, range(-2, 2), range( 0, W))
-		* (*set)->zoom_factor;
-	(*set)->move_column = mouse_y_fractal - rescale_window(y, range(2, -2), range(0, H))
-		* (*set)->zoom_factor;
+	(*set)->move_row = mouse_x_fractal - rescale_window(x, range(-2.5, 2.5),
+			range(0, W)) * (*set)->zoom_factor;
+	(*set)->move_column = mouse_y_fractal - rescale_window(y, range(-2, 2),
+			range(0, H)) * (*set)->zoom_factor;
 	mlx_loop_hook((*set)->init_c, animate, *set);
 	return (0);
 }

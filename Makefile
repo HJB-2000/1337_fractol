@@ -4,9 +4,11 @@ HEADER = fractol.h
 SRC_FILES = fractol_helper_func.c\
 			my_malloc.c\
 			mandlbrot/rendring_mandelbrot.c\
-			mandlbrot/z_math.c\
+			mandlbrot/helper_func.c\
 			julia/rendring_julia.c\
+			julia/julia_helper.c\
 			bonus/render_burning_ship.c\
+			bonus/burning_helper.c\
 			bonus/burning_ship_events.c\
 			initialize_set.c\
 			events.c\
@@ -28,3 +30,5 @@ clean:
 fclean: clean
 	rm -f fractol
 re: fclean all
+
+.PHONY: all clean fclean re

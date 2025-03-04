@@ -6,7 +6,7 @@
 /*   By: jbahmida <jbahmida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 12:43:31 by jbahmida          #+#    #+#             */
-/*   Updated: 2025/03/03 09:54:49 by jbahmida         ###   ########.fr       */
+/*   Updated: 2025/03/04 08:01:45 by jbahmida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	handle_keypress_1(int keycode, t_mlx **set)
 		render_julia(*set);
 		return (0);
 	}
-	rendring(*set);
+	rendring_mandelbrot(*set);
 	return (0);
 }
 
@@ -80,7 +80,7 @@ int	handle_mouse_enter(int b, int x, int y, t_mlx **set)
 		render_julia(*set);
 		return (0);
 	}
-	rendring(*set);
+	rendring_mandelbrot(*set);
 	return (0);
 }
 

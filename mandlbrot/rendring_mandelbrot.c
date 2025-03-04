@@ -6,23 +6,13 @@
 /*   By: jbahmida <jbahmida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 23:42:22 by jbahmida          #+#    #+#             */
-/*   Updated: 2025/03/03 09:55:58 by jbahmida         ###   ########.fr       */
+/*   Updated: 2025/03/04 08:01:18 by jbahmida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-void	my_put_pixel(int row, int column, t_image image, int color)
-{
-	int	bytes_per_pixel;
-	int	offset;
-
-	bytes_per_pixel = image.bits_pp / 8;
-	offset = (column * image.ll) + (row * bytes_per_pixel);
-	*(unsigned int *)(image.addr_p + offset) = color;
-}
-
-static int	calculate_iterations(t_com num, t_com set_point, t_mlx *set)
+int	calculate_iterations(t_com num, t_com set_point, t_mlx *set)
 {
 	int		i;
 
@@ -94,7 +84,7 @@ t_resc	grid(void)
 	return (d);
 }
 
-void	rendring(t_mlx *set)
+void	rendring_mandelbrot(t_mlx *set)
 {
 	t_resc	dimention;
 	int		row;
