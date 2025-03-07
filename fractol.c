@@ -6,7 +6,7 @@
 /*   By: jbahmida <jbahmida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 09:29:23 by jbahmida          #+#    #+#             */
-/*   Updated: 2025/03/04 11:03:17 by jbahmida         ###   ########.fr       */
+/*   Updated: 2025/03/07 02:29:18 by jbahmida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	draw(int flag, char **argv)
 	set = NULL;
 	set = create_set(set, argv, flag);
 	initialize_set(set);
+	printf("%d \n", set->image.ll);
 	if (flag == 1)
 	{
 		rendring_mandelbrot(set);
@@ -109,6 +110,7 @@ void	treat_args(int argc, char **argv)
 		draw(drawing_flag, argv);
 		return ;
 	}
+	return ;
 }
 
 int	main(int argc, char **argv)
@@ -122,12 +124,9 @@ int	main(int argc, char **argv)
 	{
 		treat_args(argc, argv);
 	}
-	else
-	{
-		my_putstr("please enter a valide arguments exmples:\n\
-			\t./fractol Mandelbrot\n\t./fractol Julia <value 1><value 2>\n");
-		my_putstr("./fractol burning_ship\n");
-	}
+	my_putstr("please enter a valide arguments exmples:\n\
+	./fractol Mandelbrot\n\t./fractol Julia <value 1><value 2>\n\
+	./fractol burning_ship\n");
 	atexit(l);
 	return (0);
 }

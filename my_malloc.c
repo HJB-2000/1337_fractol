@@ -6,25 +6,25 @@
 /*   By: jbahmida <jbahmida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 12:49:11 by jbahmida          #+#    #+#             */
-/*   Updated: 2025/03/01 14:08:29 by jbahmida         ###   ########.fr       */
+/*   Updated: 2025/03/07 02:27:15 by jbahmida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-t_garbage	*new_node(void *ptr, int i)
+static t_garbage	*new_node(void *ptr, int i)
 {
-	t_garbage	*new_node;
+	t_garbage	*new;
 
 	if (!ptr)
 		return (NULL);
-	new_node = malloc(sizeof(t_garbage));
-	if (!new_node)
+	new = malloc(sizeof(t_garbage));
+	if (!new)
 		return (NULL);
-	new_node->_malloc = ptr;
-	new_node->index = i;
-	new_node->next = NULL;
-	return (new_node);
+	new->_malloc = ptr;
+	new->index = i;
+	new->next = NULL;
+	return (new);
 }
 
 void	add_node(t_garbage **head, t_garbage *new_node)
@@ -78,10 +78,9 @@ void	*_malloc(size_t size, void *ptr, bool free_flag, bool error_flag)
 {
 	static t_garbage	*head = NULL;
 	t_garbage			*new;
-	static int			i;
+	static int			i = 0;
 	void				*instant;
 
-	i = 0;
 	if (free_flag)
 		return (_free(&head), NULL);
 	instant = treat_ptr(size, ptr);
@@ -91,12 +90,16 @@ void	*_malloc(size_t size, void *ptr, bool free_flag, bool error_flag)
 	{
 		_free(&head);
 		perror("we faced a problem");
+		atexit(l);
 		exit(EXIT_FAILURE);
 	}
 	new = new_node(instant, i);
 	i++;
 	if (!new)
+	{
+		_free(&head);
 		return (free(instant), NULL);
+	}
 	add_node(&head, new);
 	return (instant);
 }

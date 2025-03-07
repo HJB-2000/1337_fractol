@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jbahmida <jbahmida@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/03/06 19:47:18 by jbahmida          #+#    #+#              #
+#    Updated: 2025/03/06 19:47:57 by jbahmida         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = fractol
 HEADER = fractol.h
 
@@ -16,7 +28,6 @@ SRC_FILES = fractol_helper_func.c\
 
 OBJS = $(SRC_FILES:.c=.o)
 
-
 CFLAGS = -Werror -Wall -Wextra 
 CC = cc
 %.o: %.c $(HEADER)
@@ -30,5 +41,4 @@ clean:
 fclean: clean
 	rm -f fractol
 re: fclean all
-
 .PHONY: all clean fclean re

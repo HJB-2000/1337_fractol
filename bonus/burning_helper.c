@@ -6,7 +6,7 @@
 /*   By: jbahmida <jbahmida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 09:14:06 by jbahmida          #+#    #+#             */
-/*   Updated: 2025/03/04 10:59:23 by jbahmida         ###   ########.fr       */
+/*   Updated: 2025/03/07 02:38:53 by jbahmida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,17 @@ void	calculate_new_z(t_com *z, t_com *c)
 
 int	determine_color(int i, t_mlx *set)
 {
-	double	v;
+	// double	v;
 	double	x;
+	int		color;
 
-	v = COLOR_WHITE + COLOR_TRIPPY4;
+	// v = COLOR_WHITE + COLOR_TRIPPY6;
 	x = COLOR_WHITE + COLOR_TRIPPY5;
-	return (rescale_window(i, range(v, x),
+	color = x ;
+	color = (color >> 24 & 0xFF) | color ;
+	color = (color >> 16 & 0xFF) | color ;
+	color = (color >> 8 & 0xFF) | color ;
+	return (rescale_window(i, range(COLOR_BLACK, color),
 			range(0, set->pixel_loop)));
 }
 

@@ -6,7 +6,7 @@
 /*   By: jbahmida <jbahmida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 20:53:16 by jbahmida          #+#    #+#             */
-/*   Updated: 2025/03/04 11:46:27 by jbahmida         ###   ########.fr       */
+/*   Updated: 2025/03/06 19:46:27 by jbahmida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ int	handle_keypress_b(int keycode, t_mlx **set)
 		(*set)->pixel_loop += 50;
 	if (keycode == 78)
 		(*set)->pixel_loop -= 50;
-
-		if (keycode == 123)
+	if (keycode == 123)
 		(*set)->move_row += 0.5;
 	if (keycode == 124)
 		(*set)->move_row -= 0.5;

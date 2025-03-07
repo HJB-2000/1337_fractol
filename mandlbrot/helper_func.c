@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   z_math.c                                           :+:      :+:    :+:   */
+/*   helper_func.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbahmida <jbahmida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 20:27:56 by jbahmida          #+#    #+#             */
-/*   Updated: 2025/03/04 07:57:03 by jbahmida         ###   ########.fr       */
+/*   Updated: 2025/03/06 09:38:52 by jbahmida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
-
-void	my_put_pixel(int row, int column, t_image image, int color)
-{
-	int	bytes_per_pixel;
-	int	offset;
-
-	bytes_per_pixel = image.bits_pp / 8;
-	offset = (column * image.ll) + (row * bytes_per_pixel);
-	*(unsigned int *)(image.addr_p + offset) = color;
-}
 
 double	rescale_window(double unscaled_num, t_range new, t_range old)
 {

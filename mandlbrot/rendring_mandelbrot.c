@@ -6,7 +6,7 @@
 /*   By: jbahmida <jbahmida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 23:42:22 by jbahmida          #+#    #+#             */
-/*   Updated: 2025/03/04 08:01:18 by jbahmida         ###   ########.fr       */
+/*   Updated: 2025/03/06 22:51:39 by jbahmida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	treat_pixel(int row, int column, t_mlx *set, t_resc dimention)
 {
 	t_com	num;
 	t_com	p;
-	double	q;
 	int		iterations;
 	int		color;
 
@@ -41,17 +40,15 @@ void	treat_pixel(int row, int column, t_mlx *set, t_resc dimention)
 	p.r_part = dimention.resc_row[row] * set->zoom_factor + set->move_row;
 	p.i_part = dimention.resc_column[column] * set->zoom_factor
 		+ set->move_column;
-	q = (p.r_part - 0.25) * (p.r_part - 0.25) + p.i_part * p.i_part;
-	if (q * (q + (p.r_part - 0.25)) < 0.25 * (p.i_part * p.i_part)
-		|| (p.r_part + 1) * (p.r_part + 1) + p.i_part * p.i_part < 0.0625)
-	{
-		my_put_pixel(row, column, set->image, COLOR_BLACK);
-		return ;
-	}
 	iterations = calculate_iterations(num, p, set);
 	if (iterations < set->pixel_loop)
-		color = rescale_window(iterations, range(COLOR_BLACK, COLOR_BRIGHT_RED),
+	{
+		color = rescale_window(iterations, range(COLOR_BLACK, COLOR_BRIGHT_YELLOW),
 				range(0, set->pixel_loop));
+		color = (color >> 24 & 0xFF) | color ;
+		color = (color >> 16 & 0xFF) | color ;
+		color = (color >> 8 & 0xFF) | color ;
+	}
 	else
 		color = COLOR_BLACK;
 	my_put_pixel(row, column, set->image, color);

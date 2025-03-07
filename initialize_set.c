@@ -6,7 +6,7 @@
 /*   By: jbahmida <jbahmida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 09:01:22 by jbahmida          #+#    #+#             */
-/*   Updated: 2025/03/04 11:04:33 by jbahmida         ###   ########.fr       */
+/*   Updated: 2025/03/06 22:37:34 by jbahmida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	initialize_set(t_mlx *_set)
 	}
 	_set->image.addr_p = mlx_get_data_addr(_set->image.image_ptr,
 			&_set->image.bits_pp, &_set->image.ll, &_set->image.endian);
+	printf("end : %d || ll : %d \n", _set->image.endian, _set->image.ll);
 	if (!_set->image.addr_p)
 	{
 		mlx_destroy_image(_set->init_c, _set->image.image_ptr);
@@ -64,4 +65,14 @@ int	julia_checker(char **argv)
 		i++;
 	}
 	return (0);
+}
+
+void	my_put_pixel(int row, int column, t_image image, int color)
+{
+	int	bytes_per_pixel;
+	int	offset;
+
+	bytes_per_pixel = image.bits_pp / 8;
+	offset = (column * image.ll) + (row * bytes_per_pixel);
+	*(unsigned int *)(image.addr_p + offset) = color;
 }
