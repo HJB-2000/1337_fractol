@@ -6,7 +6,7 @@
 /*   By: jbahmida <jbahmida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 11:05:21 by jbahmida          #+#    #+#             */
-/*   Updated: 2025/03/04 11:07:08 by jbahmida         ###   ########.fr       */
+/*   Updated: 2025/03/07 09:05:45 by jbahmida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ double	ft_atoi(const char *str)
 		{
 			_malloc(0, NULL, true, false);
 			my_putstr("invalid  arguments.\n");
-			atexit(l);
 			exit(1);
 		}
 		result = result * 10 + (*str - '0');

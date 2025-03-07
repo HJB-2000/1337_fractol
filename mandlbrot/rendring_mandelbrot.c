@@ -6,7 +6,7 @@
 /*   By: jbahmida <jbahmida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 23:42:22 by jbahmida          #+#    #+#             */
-/*   Updated: 2025/03/06 22:51:39 by jbahmida         ###   ########.fr       */
+/*   Updated: 2025/03/07 08:12:18 by jbahmida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	treat_pixel(int row, int column, t_mlx *set, t_resc dimention)
 	iterations = calculate_iterations(num, p, set);
 	if (iterations < set->pixel_loop)
 	{
-		color = rescale_window(iterations, range(COLOR_BLACK, COLOR_BRIGHT_YELLOW),
+		color = rescale_window(iterations,
+				range(COLOR_BLACK, COLOR_BRIGHT_YELLOW),
 				range(0, set->pixel_loop));
 		color = (color >> 24 & 0xFF) | color ;
 		color = (color >> 16 & 0xFF) | color ;

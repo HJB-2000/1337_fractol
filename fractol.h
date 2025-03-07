@@ -6,7 +6,7 @@
 /*   By: jbahmida <jbahmida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 19:34:34 by jbahmida          #+#    #+#             */
-/*   Updated: 2025/03/07 02:28:08 by jbahmida         ###   ########.fr       */
+/*   Updated: 2025/03/07 09:05:36 by jbahmida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,5 @@ void	add_node(t_garbage **head, t_garbage *new_node);
 double	ft_atoi(const char *str);
 void	my_putstr(char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-void	l(void);
 
 #endif

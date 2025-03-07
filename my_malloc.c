@@ -6,7 +6,7 @@
 /*   By: jbahmida <jbahmida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 12:49:11 by jbahmida          #+#    #+#             */
-/*   Updated: 2025/03/07 02:27:15 by jbahmida         ###   ########.fr       */
+/*   Updated: 2025/03/07 08:06:14 by jbahmida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void	*_malloc(size_t size, void *ptr, bool free_flag, bool error_flag)
 	{
 		_free(&head);
 		perror("we faced a problem");
-		atexit(l);
 		exit(EXIT_FAILURE);
 	}
 	new = new_node(instant, i);

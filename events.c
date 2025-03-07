@@ -6,7 +6,7 @@
 /*   By: jbahmida <jbahmida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 12:43:31 by jbahmida          #+#    #+#             */
-/*   Updated: 2025/03/04 08:01:45 by jbahmida         ###   ########.fr       */
+/*   Updated: 2025/03/07 09:06:14 by jbahmida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	handle_keypress_1(int keycode, t_mlx **set)
 		mlx_destroy_image((*set)->init_c, (*set)->image.image_ptr);
 		mlx_destroy_window((*set)->init_c, (*set)->window);
 		_malloc(0, NULL, true, false);
-		atexit(l);
 		exit(0);
 	}
 	common_events(keycode, set);
@@ -90,7 +89,6 @@ int	handle_destroy(t_mlx **set)
 	mlx_destroy_image((*set)->init_c, (*set)->image.image_ptr);
 	mlx_destroy_window((*set)->init_c, (*set)->window);
 	_malloc(0, NULL, true, false);
-	atexit(l);
 	exit(0);
 }
 
